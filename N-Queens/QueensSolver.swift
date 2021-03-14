@@ -15,34 +15,37 @@ import Foundation
 /// - You are allowed to change the function header (args or return type)
 /// - Your total recursive calls should not exceed 120 times.
 
-var count = 0
-var numOfRecursion = 0
-func solveQueens(board: inout Board) {
-    helper(board: &board, row: 0)
-    print("(... \(count) possible ways)")
+var countFor1 = 0
+var numOfRecursionFor1 = 0
+func solveQueensFor1(board: inout Board) {
+    helperFor1(board: &board, row: 0)
+    print("(... \(countFor1) possible ways)")
+    print("Number of recursive calls: \(numOfRecursionFor1)")
 }
+
+
 
 
 /// for 1 : Print all possible ways to place 8 queens on 8x8 chessboard.
 
-//func helper(board: inout Board, row: Int) {
-//    // base case
-//    if row == 8 {
-//        print(board.description)
-//        count += 1
-//    }
-//    for i in 0...7 {
-//
-//        if board.isSafe(row: row, col: i) {
-//            board.place(row: row, col: i)
-//            helper(board: &board, row: row + 1)
-//            numOfRecursion += 1
-//            // when the choice does not lead to the right answer
-//            // delete and try another column
-//            board.remove(row: row, col: i)
-//        }
-//    }
-//}
+func helperFor1(board: inout Board, row: Int) {
+    // base case
+    if row == 8 {
+        print(board.description)
+        countFor1 += 1
+    }
+    for i in 0...7 {
+
+        if board.isSafe(row: row, col: i) {
+            board.place(row: row, col: i)
+            helperFor1(board: &board, row: row + 1)
+            numOfRecursionFor1 += 1
+            // when the choice does not lead to the right answer
+            // delete and try another column
+            board.remove(row: row, col: i)
+        }
+    }
+}
 
 
 
@@ -50,12 +53,19 @@ func solveQueens(board: inout Board) {
 /// less than 115 recursive calls.
 /// Stop immediately as soon as you find the first solution.
 
-func helper(board: inout Board, row: Int) {
+var countFor2 = 0
+var numOfRecursionFor2 = 0
+func solveQueensFor2(board: inout Board) {
+    helperFor2(board: &board, row: 0)
+    print("(... \(countFor2) possible ways)")
+}
+
+func helperFor2(board: inout Board, row: Int) {
     // base case
     if row == 8 {
         print(board.description)
-        count += 1
-        print("Number of recursive calls: \(numOfRecursion)")
+        countFor2 += 1
+        print("Number of recursive calls: \(numOfRecursionFor2)")
         exit(0)
     }
     for i in 0...7 {
@@ -65,9 +75,9 @@ func helper(board: inout Board, row: Int) {
             if board.isSafe(row: row, col: i) {
                 board.place(row: row, col: i)
 
-                if numOfRecursion < 112 {
-                    helper(board: &board, row: row + 1)
-                    numOfRecursion += 1
+                if numOfRecursionFor2 < 112 {
+                    helperFor2(board: &board, row: row + 1)
+                    numOfRecursionFor2 += 1
                 } else {
                     return
                 }
@@ -79,9 +89,9 @@ func helper(board: inout Board, row: Int) {
             if board.isSafe(row: row, col: 7 - i) {
                 board.place(row: row, col: 7 - i)
 
-                if numOfRecursion < 112 {
-                    helper(board: &board, row: row + 1)
-                    numOfRecursion += 1
+                if numOfRecursionFor2 < 112 {
+                    helperFor2(board: &board, row: row + 1)
+                    numOfRecursionFor2 += 1
                 } else {
                     return
                 }
